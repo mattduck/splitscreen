@@ -1,0 +1,39 @@
+* Splitscreen
+
+Consistent key bindings for managing windows (panes, tabs etc.) in tmux, vim
+and emacs, so I don't need to remember multiple sets of shortcuts. Uses a
+combination of tmux 1.8 and vim keys.
+
+* Prefixes
+
+| Tmux | Vim | Emacs |
+|------+-----+-------|
+| C-a  | C-w | C-w   |
+
+* Commands
+  
+| Key  | Tmux                          | Vim          | Emacs                          |
+|------+-------------------------------+--------------+--------------------------------|
+| c    | new-window                    | :tabnew      | N/A                            |
+| n    | next-window                   | :tabnext     | next-buffer                    |
+| p    | previous-window               | :tabprevious | previous-buffer                |
+| \!   | break-pane                    | :tabedit     | N/A                            |
+|------+-------------------------------+--------------+--------------------------------|
+| %    | split-window -v               | :vsplit      | split-window-right             |
+| "    | split-window -h               | :split       | split-window-below             |
+| x    | kill-pane                     | :q!          | delete-window                  |
+| z    | resize-pane -Z                | :only        | delete-other-windows           |
+| r    | swap-pane -D                  | C-w r        | evil-window-rotate-downwards   |
+| R    | swap-pane -U                  | C-w R        | evil-window-rotate-upwards     |
+| hjkl | select-pane -LDUR             | C-w hjkl     | evil-window-left/down/up/right |
+| C-h  | resize-pane -L                | C-w <        | evil-window-decrease-width     |
+| C-j  | resize-pane -D                | C-w -        | evil-window-decrease-height    |
+| C-k  | resize-pane -U                | C-w +        | evil-window-increase-height    |
+| C-l  | resize-pane -R                | C-w >        | evil-window-increase-width     |
+| H    | select-layout main-vertical   | C-w H        | evil-move-window-far-left      |
+| J    | select-layout even-vertical   | C-w J        | evil-move-window-very-bottom   |
+| K    | select-layout main-horizontal | C-w K        | evil-move-window-very-top      |
+| L    | select-layout even-horizontal | C-w L        | evil-move-window-far-right     |
+| SPC  | select-layout tiled           | C-w =        | balance-windows                |
+
+
