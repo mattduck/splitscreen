@@ -35,5 +35,4 @@ combination of tmux 1.8 and vim keys.
 | K    | select-layout main-horizontal | C-w K        | evil-move-window-very-top      |
 | L    | select-layout even-horizontal | C-w L        | evil-move-window-far-right     |
 | SPC  | select-layout tiled           | C-w =        | balance-windows                |
-
-
+| Q    | synchronize-panes             | N/A          | N/A                            |
