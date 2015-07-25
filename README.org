@@ -11,13 +11,15 @@ combination of tmux 1.8 and vim keys.
 | C-a  | C-w | C-w   |
 
 * Commands
-  
+
 | Key  | Tmux                          | Vim          | Emacs                          |
 |------+-------------------------------+--------------+--------------------------------|
-| c    | new-window                    | :tabnew      | N/A                            |
-| n    | next-window                   | :tabnext     | next-buffer                    |
-| p    | previous-window               | :tabprevious | previous-buffer                |
+| c    | new-window                    | :tabnew      | elscreen-create                |
+| n    | next-window                   | :tabnext     | elscreen-next                  |
+| p    | previous-window               | :tabprevious | elscreen-previous              |
 | \!   | break-pane                    | :tabedit     | N/A                            |
+| X    | kill-window                   | :tabclose    | elscreen-kill                  |
+| 0-9  | select-window -t (n)          | (n)gt        | elscreen-goto (n)              |
 |------+-------------------------------+--------------+--------------------------------|
 | %    | split-window -v               | :vsplit      | split-window-right             |
 | "    | split-window -h               | :split       | split-window-below             |
@@ -34,5 +36,5 @@ combination of tmux 1.8 and vim keys.
 | J    | select-layout even-vertical   | C-w J        | evil-move-window-very-bottom   |
 | K    | select-layout main-horizontal | C-w K        | evil-move-window-very-top      |
 | L    | select-layout even-horizontal | C-w L        | evil-move-window-far-right     |
-| SPC  | select-layout tiled           | C-w =        | balance-windows                |
+| SPC  | N/A                           | C-w =        | balance-windows                |
 | Q    | synchronize-panes             | N/A          | N/A                            |
