@@ -20,6 +20,11 @@
 (define-key evil-window-map (kbd "C-l") nil)
 (define-key evil-window-map (kbd "C-l") nil)
 
+(define-key ss-prefix (kbd "h") 'evil-window-left)
+(define-key ss-prefix (kbd "j") 'evil-window-down)
+(define-key ss-prefix (kbd "k") 'evil-window-up)
+(define-key ss-prefix (kbd "l") 'evil-window-right)
+
 (define-key ss-prefix (kbd "c") 'elscreen-create)
 (define-key ss-prefix (kbd "n") 'elscreen-next)
 (define-key ss-prefix (kbd "p") 'elscreen-previous)
