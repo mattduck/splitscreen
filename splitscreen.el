@@ -59,4 +59,4 @@
 
 (elscreen-start)
 
-(provide 'splitscreen-mode)
+(provide 'splitscreen)
