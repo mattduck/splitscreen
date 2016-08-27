@@ -4,10 +4,25 @@
 (require 'evil)
 (require 'elscreen)
 
-;; Splitscreen mode will just provide a keymap.
-(defvar ss-mode-map (make-sparse-keymap))
-(define-prefix-command 'ss-prefix)
-(define-key ss-mode-map (kbd "C-w") 'ss-prefix)
+
+(defvar splitscreen/zoomed-p nil)
+(defun splitscreen/toggle-zoom ()
+  "Toggle buffer maximising within this elscreen tab. Replicates the 
+   tmux zoom feature."
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (when (get-register (elscreen-get-current-screen))
+        (progn
+          (setq-local splitscreen/zoomed-p nil)
+          (jump-to-register (elscreen-get-current-screen))))
+    (progn
+      (window-configuration-to-register (elscreen-get-current-screen))
+      (setq-local splitscreen/zoomed-p t)
+      (delete-other-windows))))
+
+(defvar splitscreen/mode-map (make-sparse-keymap))
+(define-prefix-command 'splitscreen/prefix)
+(define-key splitscreen/mode-map (kbd "C-w") 'splitscreen/prefix)
 
 ;; We override these. Just declare them as part of the splitscreen map, not
 ;; evil-window-map.
@@ -20,42 +35,42 @@
 (define-key evil-window-map (kbd "C-l") nil)
 (define-key evil-window-map (kbd "C-l") nil)
 
-(define-key ss-prefix (kbd "h") 'evil-window-left)
-(define-key ss-prefix (kbd "j") 'evil-window-down)
-(define-key ss-prefix (kbd "k") 'evil-window-up)
-(define-key ss-prefix (kbd "l") 'evil-window-right)
+(define-key splitscreen/prefix (kbd "h") 'evil-window-left)
+(define-key splitscreen/prefix (kbd "j") 'evil-window-down)
+(define-key splitscreen/prefix (kbd "k") 'evil-window-up)
+(define-key splitscreen/prefix (kbd "l") 'evil-window-right)
 
-(define-key ss-prefix (kbd "c") 'elscreen-create)
-(define-key ss-prefix (kbd "n") 'elscreen-next)
-(define-key ss-prefix (kbd "p") 'elscreen-previous)
-(define-key ss-prefix (kbd "X") 'elscreen-kill)
-(define-key ss-prefix (kbd "%") 'split-window-right)
-(define-key ss-prefix (kbd "\"") 'split-window-below)
-(define-key ss-prefix (kbd "x") 'delete-window)
-(define-key ss-prefix (kbd "z") 'delete-other-windows)
-(define-key ss-prefix (kbd "C-h") 'evil-window-decrease-width)
-(define-key ss-prefix (kbd "C-j") 'evil-window-decrease-height)
-(define-key ss-prefix (kbd "C-k") 'evil-window-increase-height)
-(define-key ss-prefix (kbd "C-l") 'evil-window-increase-width)
-(define-key ss-prefix (kbd "SPC") 'balance-windows)
-(define-key ss-prefix (kbd "0") '(lambda() (interactive) (elscreen-goto 0)))
-(define-key ss-prefix (kbd "1") '(lambda() (interactive) (elscreen-goto 1)))
-(define-key ss-prefix (kbd "2") '(lambda() (interactive) (elscreen-goto 2)))
-(define-key ss-prefix (kbd "3") '(lambda() (interactive) (elscreen-goto 3)))
-(define-key ss-prefix (kbd "4") '(lambda() (interactive) (elscreen-goto 4)))
-(define-key ss-prefix (kbd "5") '(lambda() (interactive) (elscreen-goto 5)))
-(define-key ss-prefix (kbd "6") '(lambda() (interactive) (elscreen-goto 6)))
-(define-key ss-prefix (kbd "7") '(lambda() (interactive) (elscreen-goto 7)))
-(define-key ss-prefix (kbd "8") '(lambda() (interactive) (elscreen-goto 8)))
-(define-key ss-prefix (kbd "9") '(lambda() (interactive) (elscreen-goto 9)))
+(define-key splitscreen/prefix (kbd "c") 'elscreen-create)
+(define-key splitscreen/prefix (kbd "n") 'elscreen-next)
+(define-key splitscreen/prefix (kbd "p") 'elscreen-previous)
+(define-key splitscreen/prefix (kbd "X") 'elscreen-kill)
+(define-key splitscreen/prefix (kbd "%") 'split-window-right)
+(define-key splitscreen/prefix (kbd "\"") 'split-window-below)
+(define-key splitscreen/prefix (kbd "x") 'delete-window)
+(define-key splitscreen/prefix (kbd "z") 'splitscreen/toggle-zoom)
+(define-key splitscreen/prefix (kbd "C-h") 'evil-window-decrease-width)
+(define-key splitscreen/prefix (kbd "C-j") 'evil-window-decrease-height)
+(define-key splitscreen/prefix (kbd "C-k") 'evil-window-increase-height)
+(define-key splitscreen/prefix (kbd "C-l") 'evil-window-increase-width)
+(define-key splitscreen/prefix (kbd "SPC") 'balance-windows)
+(define-key splitscreen/prefix (kbd "0") '(lambda() (interactive) (elscreen-goto 0)))
+(define-key splitscreen/prefix (kbd "1") '(lambda() (interactive) (elscreen-goto 1)))
+(define-key splitscreen/prefix (kbd "2") '(lambda() (interactive) (elscreen-goto 2)))
+(define-key splitscreen/prefix (kbd "3") '(lambda() (interactive) (elscreen-goto 3)))
+(define-key splitscreen/prefix (kbd "4") '(lambda() (interactive) (elscreen-goto 4)))
+(define-key splitscreen/prefix (kbd "5") '(lambda() (interactive) (elscreen-goto 5)))
+(define-key splitscreen/prefix (kbd "6") '(lambda() (interactive) (elscreen-goto 6)))
+(define-key splitscreen/prefix (kbd "7") '(lambda() (interactive) (elscreen-goto 7)))
+(define-key splitscreen/prefix (kbd "8") '(lambda() (interactive) (elscreen-goto 8)))
+(define-key splitscreen/prefix (kbd "9") '(lambda() (interactive) (elscreen-goto 9)))
 
 (define-minor-mode splitscreen-mode
-    "Provides tmux-like bindings for managing windows and buffers. 
+    "Provides tmux-like bindings for managing windows and buffers.
      See https://github.com/mattduck/splitscreen"
     1 ; enable by default
     :lighter " Split"
     :global 1
-    :keymap ss-mode-map)
+    :keymap splitscreen/mode-map)
 
 (elscreen-start)
 

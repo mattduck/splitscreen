@@ -24,7 +24,7 @@ combination of tmux 1.8 and vim keys.
 | %    | split-window -v               | :vsplit      | split-window-right             |
 | "    | split-window -h               | :split       | split-window-below             |
 | x    | kill-pane                     | :q!          | delete-window                  |
-| z    | resize-pane -Z                | :only        | delete-other-windows           |
+| z    | resize-pane -Z                | :only        | splitscreen/toggle-zoom        |
 | r    | swap-pane -D                  | C-w r        | evil-window-rotate-downwards   |
 | R    | swap-pane -U                  | C-w R        | evil-window-rotate-upwards     |
 | hjkl | select-pane -LDUR             | C-w hjkl     | evil-window-left/down/up/right |
