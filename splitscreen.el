@@ -20,6 +20,14 @@
       (setq-local splitscreen/zoomed-p t)
       (delete-other-windows))))
 
+(defun splitscreen/elscreen-create ()
+  "Elscreen-create on the current buffer. I prefer this to starting
+   windows in the scratch buffer, because that takes some commands
+   outside the current project (eg. project-file-file)"
+  (interactive)
+  (let ((elscreen-default-buffer-name (buffer-name)))
+    (elscreen-create)))
+
 (defvar splitscreen/mode-map (make-sparse-keymap))
 (define-prefix-command 'splitscreen/prefix)
 (define-key splitscreen/mode-map (kbd "C-w") 'splitscreen/prefix)
@@ -40,7 +48,7 @@
 (define-key splitscreen/prefix (kbd "k") 'evil-window-up)
 (define-key splitscreen/prefix (kbd "l") 'evil-window-right)
 
-(define-key splitscreen/prefix (kbd "c") 'elscreen-create)
+(define-key splitscreen/prefix (kbd "c") 'splitscreen/elscreen-create)
 (define-key splitscreen/prefix (kbd "n") 'elscreen-next)
 (define-key splitscreen/prefix (kbd "p") 'elscreen-previous)
 (define-key splitscreen/prefix (kbd "X") 'elscreen-kill)
