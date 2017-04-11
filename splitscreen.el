@@ -42,6 +42,7 @@
 (define-key evil-window-map (kbd "C-k") nil)
 (define-key evil-window-map (kbd "C-l") nil)
 (define-key evil-window-map (kbd "C-l") nil)
+(define-key evil-window-map (kbd "o") nil)
 
 (define-key splitscreen/prefix (kbd "h") 'evil-window-left)
 (define-key splitscreen/prefix (kbd "j") 'evil-window-down)
@@ -56,6 +57,7 @@
 (define-key splitscreen/prefix (kbd "\"") 'split-window-below)
 (define-key splitscreen/prefix (kbd "x") 'delete-window)
 (define-key splitscreen/prefix (kbd "z") 'splitscreen/toggle-zoom)
+(define-key splitscreen/prefix (kbd "o") 'splitscreen/toggle-zoom)  ;; This is easier to reach than z
 (define-key splitscreen/prefix (kbd "C-h") 'evil-window-decrease-width)
 (define-key splitscreen/prefix (kbd "C-j") 'evil-window-decrease-height)
 (define-key splitscreen/prefix (kbd "C-k") 'evil-window-increase-height)
