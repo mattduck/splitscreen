@@ -2,7 +2,7 @@
 ;; URL: https://github.com/mattduck/splitscreen
 
 (require 'evil)
-(require 'elscreen)
+(require 'eyebrowse)
 
 
 (defvar splitscreen/zoomed-p nil)
@@ -11,12 +11,12 @@
    tmux zoom feature."
   (interactive)
   (if (= 1 (length (window-list)))
-      (when (get-register (elscreen-get-current-screen))
+      (when (get-register (eyebrowse--get 'current-slot))
         (progn
           (setq-local splitscreen/zoomed-p nil)
-          (jump-to-register (elscreen-get-current-screen))))
+          (jump-to-register (eyebrowse--get 'current-slot))))
     (progn
-      (window-configuration-to-register (elscreen-get-current-screen))
+      (window-configuration-to-register (eyebrowse--get 'current-slot))
       (setq-local splitscreen/zoomed-p t)
       (delete-other-windows))))
 
@@ -49,10 +49,10 @@
 (define-key splitscreen/prefix (kbd "k") 'evil-window-up)
 (define-key splitscreen/prefix (kbd "l") 'evil-window-right)
 
-(define-key splitscreen/prefix (kbd "c") 'splitscreen/elscreen-create)
-(define-key splitscreen/prefix (kbd "n") 'elscreen-next)
-(define-key splitscreen/prefix (kbd "p") 'elscreen-previous)
-(define-key splitscreen/prefix (kbd "X") 'elscreen-kill)
+(define-key splitscreen/prefix (kbd "c") 'eyebrowse-create-window-config)
+(define-key splitscreen/prefix (kbd "n") 'eyebrowse-next-window-config)
+(define-key splitscreen/prefix (kbd "p") 'eyebrowse-prev-window-config)
+(define-key splitscreen/prefix (kbd "X") 'eyebrowse-close-window-config)
 (define-key splitscreen/prefix (kbd "%") 'split-window-right)
 (define-key splitscreen/prefix (kbd "\"") 'split-window-below)
 (define-key splitscreen/prefix (kbd "x") 'delete-window)
@@ -63,16 +63,16 @@
 (define-key splitscreen/prefix (kbd "C-k") 'evil-window-increase-height)
 (define-key splitscreen/prefix (kbd "C-l") 'evil-window-increase-width)
 (define-key splitscreen/prefix (kbd "SPC") 'balance-windows)
-(define-key splitscreen/prefix (kbd "0") '(lambda() (interactive) (elscreen-goto 0)))
-(define-key splitscreen/prefix (kbd "1") '(lambda() (interactive) (elscreen-goto 1)))
-(define-key splitscreen/prefix (kbd "2") '(lambda() (interactive) (elscreen-goto 2)))
-(define-key splitscreen/prefix (kbd "3") '(lambda() (interactive) (elscreen-goto 3)))
-(define-key splitscreen/prefix (kbd "4") '(lambda() (interactive) (elscreen-goto 4)))
-(define-key splitscreen/prefix (kbd "5") '(lambda() (interactive) (elscreen-goto 5)))
-(define-key splitscreen/prefix (kbd "6") '(lambda() (interactive) (elscreen-goto 6)))
-(define-key splitscreen/prefix (kbd "7") '(lambda() (interactive) (elscreen-goto 7)))
-(define-key splitscreen/prefix (kbd "8") '(lambda() (interactive) (elscreen-goto 8)))
-(define-key splitscreen/prefix (kbd "9") '(lambda() (interactive) (elscreen-goto 9)))
+(define-key splitscreen/prefix (kbd "0") 'eyebrowse-switch-to-window-config-0)
+(define-key splitscreen/prefix (kbd "1") 'eyebrowse-switch-to-window-config-1)
+(define-key splitscreen/prefix (kbd "2") 'eyebrowse-switch-to-window-config-2)
+(define-key splitscreen/prefix (kbd "3") 'eyebrowse-switch-to-window-config-3)
+(define-key splitscreen/prefix (kbd "4") 'eyebrowse-switch-to-window-config-4)
+(define-key splitscreen/prefix (kbd "5") 'eyebrowse-switch-to-window-config-5)
+(define-key splitscreen/prefix (kbd "6") 'eyebrowse-switch-to-window-config-6)
+(define-key splitscreen/prefix (kbd "7") 'eyebrowse-switch-to-window-config-7)
+(define-key splitscreen/prefix (kbd "8") 'eyebrowse-switch-to-window-config-8)
+(define-key splitscreen/prefix (kbd "9") 'eyebrowse-switch-to-window-config-9)
 
 (define-minor-mode splitscreen-mode
     "Provides tmux-like bindings for managing windows and buffers.
@@ -82,6 +82,6 @@
     :global 1
     :keymap splitscreen/mode-map)
 
-(elscreen-start)
+(eyebrowse-mode)
 
 (provide 'splitscreen)
