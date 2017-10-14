@@ -4,7 +4,6 @@
 (require 'evil)
 (require 'eyebrowse)
 
-
 (defvar splitscreen/zoomed-p nil)
 (defun splitscreen/toggle-zoom ()
   "Toggle buffer maximising within this elscreen tab. Replicates the 
@@ -19,6 +18,12 @@
       (window-configuration-to-register (eyebrowse--get 'current-slot))
       (setq-local splitscreen/zoomed-p t)
       (delete-other-windows))))
+
+(defun splitscreen/reset-zoom (fn &rest args)
+  (apply fn args)
+  (set-register (eyebrowse--get 'current-slot) nil))
+  
+(advice-add 'eyebrowse-close-window-config :around 'splitscreen/reset-zoom '((name . "splitscreen")))
 
 (defun splitscreen/elscreen-create ()
   "Elscreen-create on the current buffer. I prefer this to starting
