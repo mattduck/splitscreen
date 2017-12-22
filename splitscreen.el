@@ -6,7 +6,7 @@
 
 (defvar splitscreen/zoomed-p nil)
 (defun splitscreen/toggle-zoom ()
-  "Toggle buffer maximising within this elscreen tab. Replicates the 
+  "Toggle buffer maximising within this elscreen tab. Replicates the
    tmux zoom feature."
   (interactive)
   (if (= 1 (length (window-list)))
@@ -22,7 +22,7 @@
 (defun splitscreen/reset-zoom (fn &rest args)
   (apply fn args)
   (set-register (eyebrowse--get 'current-slot) nil))
-  
+
 (advice-add 'eyebrowse-close-window-config :around 'splitscreen/reset-zoom '((name . "splitscreen")))
 
 (defun splitscreen/elscreen-create ()
@@ -33,12 +33,36 @@
   (let ((elscreen-default-buffer-name (buffer-name)))
     (elscreen-create)))
 
+(defun splitscreen/window-left ()
+  (interactive)
+  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
+  (evil-window-left 1))
+
+(defun splitscreen/window-right ()
+  (interactive)
+  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
+  (evil-window-right 1))
+
+(defun splitscreen/window-up ()
+  (interactive)
+  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
+  (evil-window-up 1))
+
+(defun splitscreen/window-down ()
+  (interactive)
+  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
+  (evil-window-down 1))
+
 (defvar splitscreen/mode-map (make-sparse-keymap))
 (define-prefix-command 'splitscreen/prefix)
 (define-key splitscreen/mode-map (kbd "C-w") 'splitscreen/prefix)
 
 ;; We override these. Just declare them as part of the splitscreen map, not
 ;; evil-window-map.
+(define-key evil-window-map (kbd "h") nil)
+(define-key evil-window-map (kbd "j") nil)
+(define-key evil-window-map (kbd "k") nil)
+(define-key evil-window-map (kbd "l") nil)
 (define-key evil-window-map (kbd "n") nil)
 (define-key evil-window-map (kbd "p") nil)
 (define-key evil-window-map (kbd "c") nil)
@@ -49,10 +73,10 @@
 (define-key evil-window-map (kbd "C-l") nil)
 (define-key evil-window-map (kbd "o") nil)
 
-(define-key splitscreen/prefix (kbd "h") 'evil-window-left)
-(define-key splitscreen/prefix (kbd "j") 'evil-window-down)
-(define-key splitscreen/prefix (kbd "k") 'evil-window-up)
-(define-key splitscreen/prefix (kbd "l") 'evil-window-right)
+(define-key splitscreen/prefix (kbd "h") 'splitscreen/window-left)
+(define-key splitscreen/prefix (kbd "j") 'splitscreen/window-down)
+(define-key splitscreen/prefix (kbd "k") 'splitscreen/window-up)
+(define-key splitscreen/prefix (kbd "l") 'splitscreen/window-right)
 
 (define-key splitscreen/prefix (kbd "c") 'eyebrowse-create-window-config)
 (define-key splitscreen/prefix (kbd "n") 'eyebrowse-next-window-config)
