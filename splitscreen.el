@@ -6,11 +6,12 @@
 
 (defvar splitscreen/zoomed-p nil)
 (defun splitscreen/toggle-zoom ()
-  "Toggle buffer maximising within this elscreen tab. Replicates the
+  "Toggle buffer maximising within this eyebrowse tab. Replicates the
    tmux zoom feature."
   (interactive)
   (if (= 1 (length (window-list)))
-      (when (get-register (eyebrowse--get 'current-slot))
+      (when (and (get-register (eyebrowse--get 'current-slot))
+                 splitscreen/zoomed-p)
         (progn
           (setq-local splitscreen/zoomed-p nil)
           (jump-to-register (eyebrowse--get 'current-slot))))
