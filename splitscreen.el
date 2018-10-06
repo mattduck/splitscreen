@@ -54,6 +54,11 @@
   (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
   (evil-window-down 1))
 
+(defun splitscreen/increase-width () (interactive) (evil-window-increase-width 10))
+(defun splitscreen/decrease-width () (interactive) (evil-window-decrease-width 10))
+(defun splitscreen/increase-height () (interactive) (evil-window-increase-height 10))
+(defun splitscreen/decrease-height () (interactive) (evil-window-decrease-height 10))
+
 (defvar splitscreen/mode-map (make-sparse-keymap))
 (define-prefix-command 'splitscreen/prefix)
 (define-key splitscreen/mode-map (kbd "C-w") 'splitscreen/prefix)
@@ -88,10 +93,10 @@
 (define-key splitscreen/prefix (kbd "x") 'delete-window)
 (define-key splitscreen/prefix (kbd "z") 'splitscreen/toggle-zoom)
 (define-key splitscreen/prefix (kbd "o") 'splitscreen/toggle-zoom)  ;; This is easier to reach than z
-(define-key splitscreen/prefix (kbd "C-h") 'evil-window-decrease-width)
-(define-key splitscreen/prefix (kbd "C-j") 'evil-window-decrease-height)
-(define-key splitscreen/prefix (kbd "C-k") 'evil-window-increase-height)
-(define-key splitscreen/prefix (kbd "C-l") 'evil-window-increase-width)
+(define-key splitscreen/prefix (kbd "C-h") 'splitscreen/decrease-width)
+(define-key splitscreen/prefix (kbd "C-j") 'splitscreen/decrease-height)
+(define-key splitscreen/prefix (kbd "C-k") 'splitscreen/increase-height)
+(define-key splitscreen/prefix (kbd "C-l") 'splitscreen/increase-width)
 (define-key splitscreen/prefix (kbd "SPC") 'balance-windows)
 (define-key splitscreen/prefix (kbd "0") 'eyebrowse-switch-to-window-config-0)
 (define-key splitscreen/prefix (kbd "1") 'eyebrowse-switch-to-window-config-1)
