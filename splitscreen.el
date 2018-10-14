@@ -36,22 +36,18 @@
 
 (defun splitscreen/window-left ()
   (interactive)
-  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
   (evil-window-left 1))
 
 (defun splitscreen/window-right ()
   (interactive)
-  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
   (evil-window-right 1))
 
 (defun splitscreen/window-up ()
   (interactive)
-  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
   (evil-window-up 1))
 
 (defun splitscreen/window-down ()
   (interactive)
-  (when splitscreen/zoomed-p (splitscreen/toggle-zoom))
   (evil-window-down 1))
 
 (defun splitscreen/increase-width () (interactive) (evil-window-increase-width 10))
